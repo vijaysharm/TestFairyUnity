@@ -9,7 +9,7 @@ using UnityEditor.iOS.Xcode;
 #endif
 
 public class MyBuildPostprocessor {
-  [PostProcessBuildAttribute]
+  [PostProcessBuildAttribute(1)]
   public static void OnPostprocessBuild(BuildTarget buildTarget, string path) {
 #if UNITY_IOS
     Debug.Log("OnPostprocessBuild: Path [{" + path + "}]");
