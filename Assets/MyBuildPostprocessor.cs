@@ -24,20 +24,20 @@ public class MyBuildPostprocessor {
 
 	[PostProcessBuild]
 	public static void OnPostprocessBuild(BuildTarget buildTarget, string path) {
-		Debug.Log(String.Format("OnPostprocessBuild: Path [{0}]", path));
+		Debug.Log("OnPostprocessBuild: Path [{" + path + "}]");
 		if (buildTarget == BuildTarget.iOS) {
 			string projPath = path + "/Unity-iPhone.xcodeproj/project.pbxproj";
 
 			PBXProject proj = new PBXProject();
 			proj.ReadFromString(File.ReadAllText(projPath));
 
-			var defaultTarget = GetDefaultTarget(proj);
-			var script = project.ShellScriptByName(defaultTarget, "Strip unused architectures");
+			string target = proj.TargetGuidByName("Unity-iPhone");
+			var script = proj.ShellScriptByName(target, "Strip unused architectures");
 
 			if (script == null) {
 				Debug.Log("OnPostprocessBuild: Adding strip script");
 				script = "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh";
-				project.AppendShellScriptBuildPhase(defaultTarget, "Strip unused architectures", "/bin/sh", script);
+				proj.AppendShellScriptBuildPhase(target, "Strip unused architectures", "/bin/sh", script);
 			} else {
 				Debug.Log("OnPostprocessBuild: Strip script already exists");
 			}
