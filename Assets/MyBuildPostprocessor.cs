@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEditor.iOS.Xcode;
 using System.IO;
 
-
 public class MyBuildPostprocessor {
 	internal static void CopyAndReplaceDirectory(string srcPath, string dstPath)
 	{
@@ -33,15 +32,9 @@ public class MyBuildPostprocessor {
 			proj.ReadFromString(File.ReadAllText(projPath));
 
 			string target = proj.TargetGuidByName("Unity-iPhone");
-			var script = proj.ShellScriptByName(target, "Strip unused architectures");
 
-			if (script == null) {
-				Debug.Log("OnPostprocessBuild: Adding strip script");
-				script = "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh";
-				proj.AppendShellScriptBuildPhase(target, "Strip unused architectures", "/bin/sh", script);
-			} else {
-				Debug.Log("OnPostprocessBuild: Strip script already exists");
-			}
+			Debug.Log("OnPostprocessBuild: Adding strip script");
+			proj.AppendShellScriptBuildPhase(target, "Strip unused architectures", "/bin/sh", "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh");
 
 			File.WriteAllText(projPath, proj.WriteToString());
 		}
