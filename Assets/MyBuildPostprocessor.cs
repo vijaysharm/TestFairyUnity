@@ -25,6 +25,6 @@ public class MyBuildPostprocessor {
 
       File.WriteAllText(projPath, proj.WriteToString());
     }
-  }
 #endif
+  }
 }
