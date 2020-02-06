@@ -3,8 +3,8 @@ using UnityEditor;
 using System.Collections;
 using System.IO;
 
-#if UNITY_IOS
 using UnityEditor.Callbacks;
+#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
 #endif
 
