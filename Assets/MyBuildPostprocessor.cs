@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEditor.iOS.Xcode;
 using System.IO;
 
+
 public class MyBuildPostprocessor {
 	internal static void CopyAndReplaceDirectory(string srcPath, string dstPath)
 	{
