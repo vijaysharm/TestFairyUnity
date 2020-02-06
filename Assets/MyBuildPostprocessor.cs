@@ -31,11 +31,12 @@ public class MyBuildPostprocessor {
 			PBXProject proj = new PBXProject();
 			proj.ReadFromString(File.ReadAllText(projPath));
 
-// 			var target = proj.TargetGuidByName("Unity-iPhone");
-			var target = proj.TargetGuidByName(PBXProject.GetUnityTargetName());
+// 			var mainTarget = proj.TargetGuidByName("Unity-iPhone");
+// 			var mainTarget = proj.TargetGuidByName();
+			var mainTarget = PBXProject.GetUnityMainTargetGuid();
 
-			Debug.Log("OnPostprocessBuild: Adding strip script to target: [" + target + "]");
-			proj.AppendShellScriptBuildPhase(target, "Strip unused architectures", "/bin/sh", "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh");
+			Debug.Log("OnPostprocessBuild: Adding strip script to target: [" + mainTarget + "]");
+			proj.AppendShellScriptBuildPhase(mainTarget, "Strip unused architectures", "/bin/sh", "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh");
 
 			File.WriteAllText(projPath, proj.WriteToString());
 		}
