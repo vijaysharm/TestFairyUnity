@@ -36,7 +36,7 @@ public class MyBuildPostprocessor {
 			var mainTarget = proj.GetUnityMainTargetGuid();
 
 			Debug.Log("OnPostprocessBuild: Adding strip script to target: [" + mainTarget + "]");
-			proj.AppendShellScriptBuildPhase(mainTarget, "Strip unused architectures", "/bin/sh", "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh");
+			proj.AddShellScriptBuildPhase(mainTarget, "Strip unused architectures", "/bin/sh", "Assets/Plugins/iOS/TestFairy.framework/strip-architectures.sh");
 
 			File.WriteAllText(projPath, proj.WriteToString());
 		}
